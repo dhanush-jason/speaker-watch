@@ -3,7 +3,7 @@ name: Speaker watch
 on:
   schedule:
     - cron: "*/15 * * * *"   # quick: HiFi Shark (eBay UK) + eBay API
-    - cron: "7 */3 * * *"    # full: every site except Facebook
+    - cron: "7 */3 * * *"    # full: every site the cloud can reach
   workflow_dispatch:
     inputs:
       sources:
@@ -44,16 +44,18 @@ jobs:
       - name: Check sites
         env:
           WATCH_DATA_DIR: data
+          # these block GitHub's servers, so the Mac checks them
+          MAC_ONLY: facebook petertyson_clearance quantumav quantumav_clearance
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
           EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            if [ -n "${{ inputs.sources }}" ]; then ARGS="--only ${{ inputs.sources }}"; else ARGS="--skip facebook"; fi
+            if [ -n "${{ inputs.sources }}" ]; then ARGS="--only ${{ inputs.sources }}"; else ARGS="--skip $MAC_ONLY"; fi
           elif [ "${{ github.event.schedule }}" = "*/15 * * * *" ]; then
             ARGS="--only hifishark ebay"
           else
-            ARGS="--skip facebook"
+            ARGS="--skip $MAC_ONLY"
           fi
           echo "python watch.py $ARGS"
           python watch.py $ARGS
@@ -61,8 +63,14 @@ jobs:
       - name: Save results
         if: always()
         run: |
-          tail -n 3000 data/watch.log > data/watch.log.tmp 2>/dev/null && mv data/watch.log.tmp data/watch.log || true
           git config user.name "speaker-watch"
           git config user.email "speaker-watch@users.noreply.github.com"
-          git add data/seen.json data/listings.html data/watch.log 2>/dev/null || true
-          git diff --cached --quiet || (git commit -m "Update listings" -q && git pull --rebase -q && git push -q)
+          cp data/seen.json "$RUNNER_TEMP/seen.json"; cp data/watch.log "$RUNNER_TEMP/watch.log" 2>/dev/null || touch "$RUNNER_TEMP/watch.log"
+          for attempt in 1 2 3 4 5; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            python merge_state.py "$RUNNER_TEMP/seen.json" "$RUNNER_TEMP/watch.log"
+            git add data/seen.json data/listings.html data/watch.log
+            git diff --cached --quiet && break
+            git commit -q -m "Update listings" && git push -q origin HEAD:main && break
+            sleep $((attempt * 5))
+          done

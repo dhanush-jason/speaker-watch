@@ -1,8 +1,8 @@
 #!/bin/bash
 # Installs two launchd jobs for the current user:
-#   speakerwatch.sites    – every site except Facebook, every 3 hours
-#   speakerwatch.quick    – HiFi Shark (eBay UK) and the eBay API, every 30 minutes
+#   speakerwatch.sites    – the sites GitHub can't reach (Peter Tyson clearance, Quantum AV), every 3 hours
 #   speakerwatch.facebook – Facebook only, at 10:00 and 20:00
+# (The old speakerwatch.quick job is removed: GitHub checks eBay every 15 minutes.)
 # Run ./install-schedule.sh --remove to uninstall.
 #
 # macOS doesn't let background jobs read ~/Documents, so the scheduled copy
@@ -24,6 +24,7 @@ if [[ "${1:-}" == "--remove" ]]; then echo "Removed."; exit 0; fi
 # copy the code, and (first time only) the history and browser sign-in
 mkdir -p "$DIR"
 cp "$SRC"/{watch.py,sources.py,extract.js,requirements.txt} "$DIR/"
+[[ -f "$SRC/ntfy.json" ]] && cp "$SRC/ntfy.json" "$DIR/"  # phone push
 for f in seen.json ebay.json browser-profile; do
   if [[ -e "$SRC/$f" && ! -L "$SRC/$f" && ! -e "$DIR/$f" ]]; then cp -R "$SRC/$f" "$DIR/"; fi
 done
@@ -55,12 +56,10 @@ EOF
 
 # macOS pauses these timers while the Mac sleeps, so the jobs fire often and
 # watch.py --if-due decides whether a check is actually due.
-# All sites except Facebook: every 3 hours (checked every 15 min)
-write_plist sites "<string>--skip</string><string>facebook</string><string>--if-due</string><string>175</string>" \
+# Everything else now runs on GitHub (github.com/dhanush-jason/speaker-watch).
+# The Mac checks only the sites that block GitHub's servers: every 3 hours.
+write_plist sites "<string>--only</string><string>petertyson_clearance</string><string>quantumav</string><string>quantumav_clearance</string><string>--if-due</string><string>175</string>" \
   "<key>StartInterval</key><integer>900</integer><key>RunAtLoad</key><true/>"
-# HiFi Shark (our route to eBay UK) and the eBay API: every 30 minutes
-write_plist quick "<string>--only</string><string>hifishark</string><string>ebay</string><string>--if-due</string><string>28</string><string>--no-wait</string>" \
-  "<key>StartInterval</key><integer>600</integer>"
 write_plist facebook "<string>--only</string><string>facebook</string>" \
   "<key>StartCalendarInterval</key><array>
     <dict><key>Hour</key><integer>10</integer><key>Minute</key><integer>0</integer></dict>

@@ -160,9 +160,16 @@ def scrape_page(ctx, src, url):
         if status >= 400:
             raise RuntimeError("HTTP %s" % status)
         page.wait_for_timeout(src.get("wait_ms", 5000))
-        if src.get("prepare"):
-            page.evaluate(src["prepare"])
-        return page.evaluate(EXTRACT_JS)
+        for attempt in (1, 2):
+            try:
+                if src.get("prepare"):
+                    page.evaluate(src["prepare"])
+                return page.evaluate(EXTRACT_JS)
+            except Exception as e:
+                if attempt == 2 or "context was destroyed" not in str(e):
+                    raise
+                page.wait_for_load_state("domcontentloaded")  # the page redirected; read it again
+                page.wait_for_timeout(3000)
     finally:
         page.close()
 
