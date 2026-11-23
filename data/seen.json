@@ -64,7 +64,7 @@
    "gen": "Silver 50 8G",
    "source": "Peter Tyson",
    "first_seen": "2026-11-14T17:47:33",
-   "last_seen": "2026-11-23T02:39:22",
+   "last_seen": "2026-11-23T20:54:15",
    "edition": ""
   },
   "https://petertyson.co.uk/manufacturer-refurbished-monitor-audio-silver-50-8g-bookshelf-speakers-satin-white": {
@@ -114,7 +114,7 @@
    "gen": "Silver 100 7G",
    "source": "HiFi Shark (eBay UK, dealers, forums)",
    "first_seen": "2026-11-23T20:36:43",
-   "last_seen": "2026-11-23T20:36:43",
+   "last_seen": "2026-11-23T20:54:15",
    "edition": "Heritage Green LE"
   }
  },
@@ -127,122 +127,122 @@
   "gumtree": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "preloved": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "hifishark": {
    "fails": 0,
    "count": 2,
-   "last_ok": "2026-11-23T20:36:43"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "richersounds": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "premiumsound": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "petertyson": {
    "fails": 0,
    "count": 1,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "amazon": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "richersounds_le": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "hifix": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "audiovenue": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "dougbrady": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "hifisound": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "sevenoaks": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "petertyson_clearance": {
-   "fails": 0,
+   "fails": 1,
    "count": 1,
    "last_ok": "2026-11-23T02:39:22"
   },
   "vickers": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "vickers_sale": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "vinted": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "cashconverters": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "shpock": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "quantumav": {
-   "fails": 0,
+   "fails": 1,
    "count": 0,
    "last_ok": "2026-11-23T02:39:22"
   },
   "quantumav_clearance": {
-   "fails": 0,
+   "fails": 1,
    "count": 0,
    "last_ok": "2026-11-23T02:39:22"
   },
   "weybridge": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "referenceaudio": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   },
   "analogueseduction": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-23T20:54:15"
   }
  }
 }
