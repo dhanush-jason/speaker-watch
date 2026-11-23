@@ -1,5 +1,9 @@
 # Silver 100 7G watcher
 
+**Runs in the cloud:** GitHub Actions checks HiFi Shark (eBay UK) every 15 minutes and every other site every 3 hours, and sends phone alerts through the free **ntfy** app (topic in the `NTFY_TOPIC` secret). Results: `data/listings.html`. Run it by hand from the repo's *Actions* tab → *Speaker watch* → *Run workflow*.
+**Runs on the Mac:** only sites that block GitHub's servers (Facebook at 10:00 and 20:00, Peter Tyson clearance and Quantum AV every 3 hours), via `install-schedule.sh`.
+Optional eBay API: add `EBAY_CLIENT_ID` / `EBAY_CLIENT_SECRET` as repo secrets with `gh secret set`.
+
 Checks UK shops and marketplaces for **Monitor Audio Silver 100 7G** and sends a Mac notification when a new listing appears. Everything found is listed in `listings.html`.
 
 | Site | How often | Notes |
