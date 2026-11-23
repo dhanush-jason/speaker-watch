@@ -1,0 +1,68 @@
+name: Speaker watch
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # quick: HiFi Shark (eBay UK) + eBay API
+    - cron: "7 */3 * * *"    # full: every site except Facebook
+  workflow_dispatch:
+    inputs:
+      sources:
+        description: "Sites to check (blank = all except Facebook), e.g. 'hifishark gumtree' or 'facebook'"
+        required: false
+        default: ""
+
+# one run at a time; queued runs wait so seen.json is never written twice at once
+concurrency:
+  group: speaker-watch
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # to save seen.json / listings.html back to the repo
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache Playwright browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
+      - name: Install
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Check sites
+        env:
+          WATCH_DATA_DIR: data
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ -n "${{ inputs.sources }}" ]; then ARGS="--only ${{ inputs.sources }}"; else ARGS="--skip facebook"; fi
+          elif [ "${{ github.event.schedule }}" = "*/15 * * * *" ]; then
+            ARGS="--only hifishark ebay"
+          else
+            ARGS="--skip facebook"
+          fi
+          echo "python watch.py $ARGS"
+          python watch.py $ARGS
+
+      - name: Save results
+        if: always()
+        run: |
+          tail -n 3000 data/watch.log > data/watch.log.tmp 2>/dev/null && mv data/watch.log.tmp data/watch.log || true
+          git config user.name "speaker-watch"
+          git config user.email "speaker-watch@users.noreply.github.com"
+          git add data/seen.json data/listings.html data/watch.log 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "Update listings" -q && git pull --rebase -q && git push -q)

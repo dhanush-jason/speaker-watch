@@ -1,0 +1,13 @@
+ntfy.json
+ebay.json
+.venv/
+browser-profile/
+.lock
+launchd.log
+*.before-*.json
+data/.lock
+data/browser-profile/
+/seen.json
+/listings.html
+/watch.log
+/seen.*.json
