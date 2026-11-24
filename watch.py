@@ -64,6 +64,12 @@ WANTED = re.compile(r"\b(wanted|wtb|want to buy|looking for|iso|in search of)\b"
 PRICE = re.compile(r"(£|€|US\$|\$)\s?\d[\d,]*(?:\.\d{2})?")
 BROKEN_AFTER = 3  # failed loads in a row before warning
 SHOW_DAYS = 14  # listings.html shows items seen in this many days
+# Marketplaces list everything for sale each time, so a listing missing from
+# this many checks in a row has almost certainly sold or ended. (Shops' own
+# searches skip items now and then, so those wait a day instead.)
+GONE_AFTER = 3
+FAST_GONE = {"hifishark", "ebay", "gumtree", "preloved", "vinted", "cashconverters", "shpock"}
+LISTED = re.compile(r"\s*(\d{1,2} [A-Z][a-z]{2} \d{4})\s*$")
 
 
 def log(msg):
@@ -352,8 +358,12 @@ def write_html(state):
     for v in items:
         # not seen for a day although the site has been checked since:
         # probably sold or ended (sites' searches can skip items now and then)
-        v["gone"] = (v["last_seen"] < last_ok.get(v["source"], "")
-                     and v["last_seen"] < (datetime.now() - timedelta(hours=24)).isoformat())
+        v["gone"] = v.get("missed", 0) >= GONE_AFTER or (
+            v["last_seen"] < last_ok.get(v["source"], "")
+            and v["last_seen"] < (datetime.now() - timedelta(hours=24)).isoformat())
+        m = LISTED.search(v["title"])  # HiFi Shark titles end with the date it was listed
+        v["listed"] = datetime.strptime(m.group(1), "%d %b %Y").strftime("%d %b") if m else ""
+        v["shown_title"] = re.sub(r"\s*(US\$|[£€$])[\d,.]+\s*$", "", LISTED.sub("", v["title"])) if m else v["title"]
         if v["gen"] in ("7G", "?"):  # entries saved before the 50 / 8G were added
             v["gen"] = "Silver 100 " + v["gen"]
         v.setdefault("edition", edition(v["title"]) if is_100_7g(v["gen"]) else "")
@@ -363,15 +373,16 @@ def write_html(state):
     for v in items:
         new = v["first_seen"] >= (datetime.now() - timedelta(hours=24)).isoformat()
         rows.append(
-            "<tr class='%s'><td>%s</td><td>%s</td><td>%s<a href='%s' target='_blank' rel='noopener'>%s</a></td>"
+            "<tr class='%s'><td>%s</td><td class='num'>%s</td><td>%s</td><td>%s<a href='%s' target='_blank' rel='noopener'>%s</a></td>"
             "<td class='num'>%s</td><td>%s</td><td>%s</td></tr>" % (
                 " ".join(c for c in ["new" if new and not v["gone"] else "", "le" if v["edition"] else "", "gone" if v["gone"] else ""] if c),
                 html.escape(v["first_seen"][:16].replace("T", " ")),
+                html.escape(v["listed"] or "–"),
                 html.escape(v["source"]),
                 ("<span class='badge %s'>%s</span> " % ("green" if "Green" in v["edition"] else "carbon" if "Carbon" in v["edition"] else "",
                                                       html.escape(v["edition"]))) if v["edition"] else "",
-                html.escape(v["url"]), html.escape(v["title"]),
-                html.escape(v["price"] or "?"), html.escape(v["gen"]), "gone" if v["gone"] else "NEW" if new else ""))
+                html.escape(v["url"]), html.escape(v["shown_title"]),
+                html.escape(v["price"] or "?"), html.escape(v["gen"]), "sold / gone" if v["gone"] else "NEW" if new else ""))
     sources = state.get("sources", {})
     status = " · ".join(
         "%s: %s" % (html.escape(s["label"]), "⚠️ failing" if sources.get(s["name"], {}).get("fails", 0) >= BROKEN_AFTER
@@ -394,12 +405,12 @@ tr.new td{background:var(--new)} tr.gone td{opacity:.45} tr.gone a{text-decorati
 </style>
 <h1>Monitor Audio Silver watch</h1>
 <p>Updated %s · %d listings seen in the last %d days · newest %s<br>%s</p>
-<div class=wrap><table id=t><thead><tr><th>First seen</th><th>Site</th><th>Listing</th><th>Price</th><th>Model</th><th></th></tr></thead>
+<div class=wrap><table id=t><thead><tr><th>First seen</th><th>Listed</th><th>Site</th><th>Listing</th><th>Price</th><th>Model</th><th></th></tr></thead>
 <tbody>%s</tbody></table></div>
 <script>
 document.querySelectorAll('th').forEach((th,i)=>th.onclick=()=>{const tb=document.querySelector('tbody');
 const rows=[...tb.rows];const asc=th.dataset.asc!=='1';th.dataset.asc=asc?'1':'0';
-const val=r=>{const t=r.cells[i].innerText;const n=parseFloat(t.replace(/[^0-9.]/g,''));return i===3&&!isNaN(n)?n:t.toLowerCase()};
+const val=r=>{const t=r.cells[i].innerText;const n=parseFloat(t.replace(/[^0-9.]/g,''));return i===4&&!isNaN(n)?n:t.toLowerCase()};
 rows.sort((a,b)=>(val(a)>val(b)?1:val(a)<val(b)?-1:0)*(asc?1:-1));rows.forEach(r=>tb.appendChild(r))});
 </script>""" % (datetime.now().strftime("%d %b %Y %H:%M"), len(items), SHOW_DAYS,
                  html.escape(newest[:16].replace("T", " ")), status, "\n".join(rows)))
@@ -447,6 +458,11 @@ def record(state, name, label, result, error, now, new_items, alerts):
                                           source=label, first_seen=now, last_seen=now,
                                           edition=edition(it["title"]) if is_100_7g(it["gen"]) else "")
             new_items.append(state["listings"][key])
+        state["listings"][key]["missed"] = 0
+    if name in FAST_GONE:
+        for v in state["listings"].values():
+            if v["source"] == label and v["last_seen"] != now:
+                v["missed"] = v.get("missed", 0) + 1
 
 
 def main():
