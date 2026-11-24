@@ -114,8 +114,18 @@
    "gen": "Silver 100 7G",
    "source": "HiFi Shark (eBay UK, dealers, forums)",
    "first_seen": "2026-11-23T20:36:43",
-   "last_seen": "2026-11-24T13:21:39",
+   "last_seen": "2026-11-24T13:43:58",
    "edition": "Heritage Green LE"
+  },
+  "https://www.ebay.co.uk/itm/840161610226": {
+   "title": "MONITOR AUDIO SILVER 100 SPEAKERS \u00a3400 24 Nov 2026",
+   "url": "https://www.ebay.co.uk/itm/840161610226",
+   "price": "\u00a3400",
+   "gen": "Silver 100 ?",
+   "source": "HiFi Shark (eBay UK, dealers, forums)",
+   "first_seen": "2026-11-24T13:43:58",
+   "last_seen": "2026-11-24T13:43:58",
+   "edition": ""
   }
  },
  "sources": {
@@ -136,8 +146,8 @@
   },
   "hifishark": {
    "fails": 0,
-   "count": 2,
-   "last_ok": "2026-11-24T13:21:39"
+   "count": 3,
+   "last_ok": "2026-11-24T13:43:58"
   },
   "richersounds": {
    "fails": 0,
