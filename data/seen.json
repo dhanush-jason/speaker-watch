@@ -114,7 +114,7 @@
    "gen": "Silver 100 7G",
    "source": "HiFi Shark (eBay UK, dealers, forums)",
    "first_seen": "2026-11-23T20:36:43",
-   "last_seen": "2026-11-24T01:14:11",
+   "last_seen": "2026-11-24T01:24:44",
    "edition": "Heritage Green LE"
   }
  },
@@ -137,7 +137,7 @@
   "hifishark": {
    "fails": 0,
    "count": 2,
-   "last_ok": "2026-11-24T01:14:11"
+   "last_ok": "2026-11-24T01:24:44"
   },
   "richersounds": {
    "fails": 0,
@@ -155,7 +155,7 @@
    "last_ok": "2026-11-24T01:14:11"
   },
   "amazon": {
-   "fails": 2,
+   "fails": 1,
    "count": 0,
    "last_ok": "2026-11-23T20:54:15"
   },
