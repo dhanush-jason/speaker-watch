@@ -899,3 +899,5 @@
 2026-11-24 22:12:29  hifishark      2 matching listing(s)
 2026-11-24 22:12:32  done: 0 new, 14 total tracked → listings.html
 2026-11-24 22:12:32  ebay           FAILED (5 in a row): eBay sign-in: HTTP 401 {"error":"invalid_client","error_description":"client authentication failed"}
+2026-11-24 22:12:58  done: 0 new, 14 total tracked → listings.html
+2026-11-24 22:12:58  ebay           1 matching listing(s)
