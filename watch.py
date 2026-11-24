@@ -268,6 +268,13 @@ def ebay_api():
             cid, secret = c.get("client_id"), c.get("client_secret")
     if not (cid and secret):
         return None
+    cid, secret = cid.strip(), secret.strip()
+
+    def call(req, step):
+        try:
+            return json.load(urllib.request.urlopen(req, timeout=30))
+        except urllib.error.HTTPError as e:  # eBay's reply says what's wrong (no keys in it)
+            raise RuntimeError("%s: HTTP %s %s" % (step, e.code, e.read()[:300].decode("utf-8", "replace")))
     auth = base64.b64encode(("%s:%s" % (cid, secret)).encode()).decode()
     req = urllib.request.Request(
         "https://api.ebay.com/identity/v1/oauth2/token",
@@ -277,7 +284,7 @@ def ebay_api():
         }).encode(),
         headers={"Authorization": "Basic " + auth, "Content-Type": "application/x-www-form-urlencoded"},
     )
-    token = json.load(urllib.request.urlopen(req, timeout=30))["access_token"]
+    token = call(req, "eBay sign-in")["access_token"]
     summaries = {}
     for phrase in SEARCHES:
         q = urllib.parse.urlencode({
@@ -289,7 +296,7 @@ def ebay_api():
             "https://api.ebay.com/buy/browse/v1/item_summary/search?" + q,
             headers={"Authorization": "Bearer " + token, "X-EBAY-C-MARKETPLACE-ID": "EBAY_GB"},
         )
-        for it in json.load(urllib.request.urlopen(req, timeout=30)).get("itemSummaries", []):
+        for it in call(req, "eBay search").get("itemSummaries", []):
             summaries[it["itemId"]] = it
     out = []
     for it in summaries.values():
