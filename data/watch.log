@@ -817,3 +817,5 @@
 2026-11-24 20:31:59  hifishark      2 matching listing(s)
 2026-11-24 20:32:01  done: 0 new, 14 total tracked → listings.html
 2026-11-24 20:32:01  ebay           skipped (no API key; HiFi Shark still covers eBay UK)
+2026-11-24 20:55:51  done: 0 new, 14 total tracked → listings.html
+2026-11-24 20:55:51  ebay           FAILED (1 in a row): HTTP Error 401: Unauthorized
