@@ -2,6 +2,8 @@
 # Installs two launchd jobs for the current user:
 #   speakerwatch.sites    – the sites GitHub can't reach (Peter Tyson clearance, Quantum AV), every 3 hours
 #   speakerwatch.facebook – Facebook only, at 10:00 and 20:00
+# After each check, sync.sh sends the results to GitHub and copies back the
+# combined listings.html, so the page here shows the cloud's finds too.
 # (The old speakerwatch.quick job is removed: GitHub checks eBay every 15 minutes.)
 # Run ./install-schedule.sh --remove to uninstall.
 #
@@ -23,7 +25,9 @@ if [[ "${1:-}" == "--remove" ]]; then echo "Removed."; exit 0; fi
 
 # copy the code, and (first time only) the history and browser sign-in
 mkdir -p "$DIR"
-cp "$SRC"/{watch.py,sources.py,extract.js,requirements.txt} "$DIR/"
+cp "$SRC"/{watch.py,sources.py,extract.js,requirements.txt,merge_state.py,sync.sh,run.sh} "$DIR/"
+# after each check the Mac syncs with GitHub (sync.sh), committing as you
+echo "$(git -C "$SRC" config user.name) $(git -C "$SRC" config user.email)" > "$DIR/git-identity"
 [[ -f "$SRC/ntfy.json" ]] && cp "$SRC/ntfy.json" "$DIR/"  # phone push
 for f in seen.json ebay.json browser-profile; do
   if [[ -e "$SRC/$f" && ! -L "$SRC/$f" && ! -e "$DIR/$f" ]]; then cp -R "$SRC/$f" "$DIR/"; fi
@@ -43,7 +47,7 @@ write_plist() { # name, args xml, schedule xml
 <plist version="1.0"><dict>
   <key>Label</key><string>com.speakerwatch.$1</string>
   <key>ProgramArguments</key><array>
-    <string>$PY</string><string>$DIR/watch.py</string>$2
+    <string>/bin/bash</string><string>$DIR/run.sh</string>$2
   </array>
   <key>WorkingDirectory</key><string>$DIR</string>
   $3

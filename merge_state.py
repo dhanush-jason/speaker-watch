@@ -19,6 +19,14 @@ ours_seen, ours_log = Path(sys.argv[1]), Path(sys.argv[2])
 theirs = json.loads(watch.STATE_FILE.read_text()) if watch.STATE_FILE.exists() else {"listings": {}, "sources": {}}
 ours = json.loads(ours_seen.read_text())
 
+# The Mac passes MERGE_ONLY (its own site names) so its out-of-date copies of
+# the cloud's sites don't get merged in.
+only = os.environ.get("MERGE_ONLY", "").split()
+if only:
+    labels = {s["label"] for s in watch.SOURCES if s["name"] in only}
+    ours["listings"] = {k: v for k, v in ours["listings"].items() if v["source"] in labels}
+    ours["sources"] = {k: v for k, v in ours["sources"].items() if k in only}
+
 for key, v in ours["listings"].items():
     t = theirs["listings"].get(key)
     if not t or v["last_seen"] >= t["last_seen"]:
@@ -35,7 +43,7 @@ watch.write_html(theirs)
 
 # logs: keep every line once, in time order, last 3000
 lines = set()
-for f in (watch.LOG_FILE, ours_log):
+for f in ((watch.LOG_FILE,) if only else (watch.LOG_FILE, ours_log)):
     if f.exists():
         lines.update(l for l in f.read_text().splitlines() if l.strip())
 watch.LOG_FILE.write_text("\n".join(sorted(lines)[-3000:]) + "\n")
