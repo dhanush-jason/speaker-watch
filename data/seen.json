@@ -129,7 +129,7 @@
    "gen": "Silver 100 ?",
    "source": "HiFi Shark (eBay UK, dealers, forums)",
    "first_seen": "2026-11-24T13:43:58",
-   "last_seen": "2026-11-25T01:19:39",
+   "last_seen": "2026-11-25T01:30:09",
    "edition": "",
    "missed": 0
   },
@@ -163,8 +163,8 @@
   },
   "hifishark": {
    "fails": 0,
-   "count": 1,
-   "last_ok": "2026-11-25T01:19:39"
+   "count": 2,
+   "last_ok": "2026-11-25T01:30:09"
   },
   "richersounds": {
    "fails": 0,
@@ -182,7 +182,7 @@
    "last_ok": "2026-11-25T01:19:39"
   },
   "amazon": {
-   "fails": 1,
+   "fails": 0,
    "count": 0,
    "last_ok": "2026-11-24T22:02:21"
   },
@@ -274,7 +274,7 @@
   "ebay": {
    "fails": 0,
    "count": 1,
-   "last_ok": "2026-11-25T01:19:39"
+   "last_ok": "2026-11-25T01:30:09"
   }
  }
 }
