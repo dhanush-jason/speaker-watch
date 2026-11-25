@@ -7,7 +7,8 @@
    "gen": "7G",
    "source": "Facebook Marketplace",
    "first_seen": "2026-11-08T20:20:25",
-   "last_seen": "2026-11-23T20:10:15"
+   "last_seen": "2026-11-25T10:21:19",
+   "missed": 0
   },
   "https://www.facebook.com/marketplace/item/1627958212191070": {
    "title": "\u00a3450 Monitor audio silver 100 7g upgraded internals London, United Kingdom",
@@ -16,7 +17,8 @@
    "gen": "7G",
    "source": "Facebook Marketplace",
    "first_seen": "2026-11-08T20:26:57",
-   "last_seen": "2026-11-23T20:10:15"
+   "last_seen": "2026-11-25T10:21:19",
+   "missed": 0
   },
   "https://www.facebook.com/marketplace/item/1810623266658317": {
    "title": "\u00a3450 \u00a3475 Monitor Audio Silver 100 7g speakers, with accessories. Coleraine, Coleraine, United Kingdom",
@@ -25,7 +27,8 @@
    "gen": "7G",
    "source": "Facebook Marketplace",
    "first_seen": "2026-11-10T20:05:09",
-   "last_seen": "2026-11-23T20:10:15"
+   "last_seen": "2026-11-25T10:21:19",
+   "missed": 0
   },
   "https://www.facebook.com/marketplace/item/1844790390007870": {
    "title": "\u00a3430 Monitor audio silver 100 7G with stands gloss black Manchester, United Kingdom",
@@ -34,8 +37,9 @@
    "gen": "7G",
    "source": "Facebook Marketplace",
    "first_seen": "2026-11-11T10:00:05",
-   "last_seen": "2026-11-23T20:10:15",
-   "edition": ""
+   "last_seen": "2026-11-25T10:21:19",
+   "edition": "",
+   "missed": 0
   },
   "https://www.ebay.co.uk/itm/840119033942": {
    "title": "MONITOR AUDIO SILVER 100 SPEAKERS \u00a3400 11 Nov 2026",
@@ -149,7 +153,7 @@
   "facebook": {
    "fails": 0,
    "count": 4,
-   "last_ok": "2026-11-23T20:10:15"
+   "last_ok": "2026-11-25T10:21:19"
   },
   "gumtree": {
    "fails": 0,
@@ -217,9 +221,9 @@
    "last_ok": "2026-11-25T16:16:01"
   },
   "petertyson_clearance": {
-   "fails": 1,
+   "fails": 0,
    "count": 1,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-25T16:15:24"
   },
   "vickers": {
    "fails": 0,
@@ -247,14 +251,14 @@
    "last_ok": "2026-11-25T16:16:01"
   },
   "quantumav": {
-   "fails": 1,
+   "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-25T16:15:24"
   },
   "quantumav_clearance": {
-   "fails": 1,
+   "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-23T02:39:22"
+   "last_ok": "2026-11-25T16:15:24"
   },
   "weybridge": {
    "fails": 0,
