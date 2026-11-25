@@ -57,7 +57,7 @@ SPEAKERS = re.compile(r"\b(pair|speakers?|bookshelf)\b", re.I)
 # and Carbon Black Metallic (2025)
 GREEN = re.compile(r"\b(green|heritage|50th|anniversary)\b", re.I)
 CARBON = re.compile(r"\b(carbon|black\s*metallic|metallic\s*black)\b", re.I)
-LIMITED = re.compile(r"\b(limited|l\.?e\.?|numbered)\b", re.I)
+LIMITED = re.compile(r"\b(limited|l\.?e\.?|numbered)\b|\b\d{1,3}\s*/\s*999\b", re.I)
 JUNK = re.compile(r"search results|you searched|results for", re.I)
 # people looking to buy, not sell
 WANTED = re.compile(r"\b(wanted|wtb|want to buy|looking for|iso|in search of)\b", re.I)
