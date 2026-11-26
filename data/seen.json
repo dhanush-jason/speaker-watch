@@ -69,7 +69,7 @@
    "gen": "Silver 50 8G",
    "source": "Peter Tyson",
    "first_seen": "2026-11-14T17:47:33",
-   "last_seen": "2026-11-26T16:10:33",
+   "last_seen": "2026-11-26T17:59:12",
    "edition": "",
    "missed": 0
   },
@@ -223,7 +223,7 @@
   "petertyson_clearance": {
    "fails": 0,
    "count": 1,
-   "last_ok": "2026-11-26T14:06:36"
+   "last_ok": "2026-11-26T17:59:12"
   },
   "vickers": {
    "fails": 0,
@@ -253,12 +253,12 @@
   "quantumav": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-26T14:06:36"
+   "last_ok": "2026-11-26T17:59:12"
   },
   "quantumav_clearance": {
    "fails": 0,
    "count": 0,
-   "last_ok": "2026-11-26T14:06:36"
+   "last_ok": "2026-11-26T17:59:12"
   },
   "weybridge": {
    "fails": 0,
