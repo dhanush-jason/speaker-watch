@@ -50,7 +50,7 @@
    "first_seen": "2026-11-12T23:26:12",
    "last_seen": "2026-11-22T03:47:05",
    "edition": "",
-   "missed": 41
+   "missed": 42
   },
   "https://petertyson.co.uk/manufacturer-refurbished-monitor-audio-silver-50-8g-bookshelf-speakers-high-gloss-black": {
    "title": "Manufacturer Refurbished - Monitor Audio Silver 50 8G Bookshelf Speakers - High Gloss Black",
@@ -92,7 +92,7 @@
    "first_seen": "2026-11-15T14:36:04",
    "last_seen": "2026-11-20T04:38:42",
    "edition": "",
-   "missed": 41
+   "missed": 42
   },
   "https://petertyson.co.uk/nearly-new-monitor-audio-silver-100-7g-bookshelf-speakers-black-gloss": {
    "title": "Nearly New - Monitor Audio Silver 100 7G Bookshelf Speakers - Black Gloss",
@@ -113,7 +113,7 @@
    "first_seen": "2026-11-22T03:47:05",
    "last_seen": "2026-11-22T03:47:05",
    "edition": "",
-   "missed": 41
+   "missed": 42
   },
   "https://www.ebay.co.uk/itm/307297681498": {
    "title": "Monitor Audio Silver 100 7G Ltd Edition Heritage Green Speakers 817/999 \u00a3414 23 Nov 2026",
@@ -124,7 +124,7 @@
    "first_seen": "2026-11-23T20:36:43",
    "last_seen": "2026-11-24T16:42:48",
    "edition": "Heritage Green LE",
-   "missed": 41
+   "missed": 42
   },
   "https://www.ebay.co.uk/itm/840161610226": {
    "title": "MONITOR AUDIO SILVER 100 SPEAKERS",
@@ -133,7 +133,7 @@
    "gen": "Silver 100 ?",
    "source": "HiFi Shark (eBay UK, dealers, forums)",
    "first_seen": "2026-11-24T13:43:58",
-   "last_seen": "2026-11-26T04:07:06",
+   "last_seen": "2026-11-26T04:44:26",
    "edition": "",
    "missed": 0
   },
@@ -167,8 +167,8 @@
   },
   "hifishark": {
    "fails": 0,
-   "count": 2,
-   "last_ok": "2026-11-26T04:07:06"
+   "count": 1,
+   "last_ok": "2026-11-26T04:44:26"
   },
   "richersounds": {
    "fails": 0,
@@ -278,7 +278,7 @@
   "ebay": {
    "fails": 0,
    "count": 1,
-   "last_ok": "2026-11-26T04:07:06"
+   "last_ok": "2026-11-26T04:44:26"
   }
  }
 }
