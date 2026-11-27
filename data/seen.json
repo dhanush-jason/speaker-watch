@@ -7,7 +7,7 @@
    "gen": "7G",
    "source": "Facebook Marketplace",
    "first_seen": "2026-11-08T20:20:25",
-   "last_seen": "2026-11-27T10:03:22",
+   "last_seen": "2026-11-27T20:04:56",
    "missed": 0
   },
   "https://www.facebook.com/marketplace/item/1627958212191070": {
@@ -17,7 +17,7 @@
    "gen": "7G",
    "source": "Facebook Marketplace",
    "first_seen": "2026-11-08T20:26:57",
-   "last_seen": "2026-11-27T10:03:22",
+   "last_seen": "2026-11-27T20:04:56",
    "missed": 0
   },
   "https://www.facebook.com/marketplace/item/1810623266658317": {
@@ -27,7 +27,7 @@
    "gen": "7G",
    "source": "Facebook Marketplace",
    "first_seen": "2026-11-10T20:05:09",
-   "last_seen": "2026-11-27T10:03:22",
+   "last_seen": "2026-11-27T20:04:56",
    "missed": 0
   },
   "https://www.facebook.com/marketplace/item/1844790390007870": {
@@ -37,7 +37,7 @@
    "gen": "7G",
    "source": "Facebook Marketplace",
    "first_seen": "2026-11-11T10:00:05",
-   "last_seen": "2026-11-27T10:03:22",
+   "last_seen": "2026-11-27T20:04:56",
    "edition": "",
    "missed": 0
   },
@@ -197,7 +197,7 @@
   "facebook": {
    "fails": 0,
    "count": 4,
-   "last_ok": "2026-11-27T10:03:22"
+   "last_ok": "2026-11-27T20:04:56"
   },
   "gumtree": {
    "fails": 0,
